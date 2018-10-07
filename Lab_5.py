@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[14]:
-
-
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -12,10 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 data = pd.read_csv("./data.csv")
-
-
-# In[15]:
-
 
 X = data.iloc[:,2:4]
 y = data.iloc[:, 1]
@@ -27,10 +17,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 scale_X = StandardScaler()
 X_train = scale_X.fit_transform(X_train)
 X_test = scale_X.transform(X_test)
-
-
-# In[16]:
-
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -61,10 +47,6 @@ def viz_cm(model, labels):
     plt.legend()
     plt.show()
 
-
-# In[17]:
-
-
 def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=None):
     """pretty print for confusion matrixes"""
     columnwidth = max([len(x) for x in labels] + [5])  # 5 is value length
@@ -88,104 +70,44 @@ def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=
             print(cell, end=" ")
         print()
 
-
-# In[18]:
-
-
 from sklearn.naive_bayes import GaussianNB
 bayes_classifier = GaussianNB()
 bayes_classifier.fit(X_train, y_train)
 
-
-# In[19]:
-
-
 y_pred = bayes_classifier.predict(X_test)
 y_pred
-
-
-# In[20]:
-
-
 y_test
-
-
-# In[21]:
-
 
 from sklearn.metrics import confusion_matrix
 confMat = confusion_matrix(y_test, y_pred)
 print_cm(confMat, ["Benign", "Malignant"])
 
-
-# In[22]:
-
-
 viz_cm(bayes_classifier, ["Radius Mean", "Texture Mean"])
-
-
-# In[24]:
-
 
 from sklearn.tree import DecisionTreeClassifier
 dt_classifier = DecisionTreeClassifier(random_state = 1693, max_depth = 3)
 dt_classifier.fit(X_train, y_train)
 dt_pred = dt_classifier.predict(X_test)
 
-
-# In[25]:
-
-
 dt_confMat = confusion_matrix(y_test, dt_pred)
 print_cm(dt_confMat, ["Benign", "Malignant"])
 
-
-# In[26]:
-
-
 viz_cm(dt_classifier, ["Radius Mean", "Texture Mean"])
-
-
-# In[28]:
-
 
 from sklearn import tree
 tree.export_graphviz(dt_classifier, out_file = "tree_dt.dot", feature_names= ["Radius Mean", "Texture Mean"])
 
-
-# In[29]:
-
-
 from sklearn.ensemble import RandomForestClassifier
-
-
-# In[30]:
-
 
 rt_classifier = RandomForestClassifier(n_estimators = 1000, random_state=1693, max_depth=3)
 rt_classifier.fit(X_train, y_train)
 
-
-# In[31]:
-
-
 rt_pred = rt_classifier.predict(X_test)
-
-
-# In[32]:
-
 
 rt_confMat = confusion_matrix(y_test, rt_pred)
 print_cm(rt_confMat, ["Benign", "Malignant"])
 
-
-# In[33]:
-
-
 viz_cm(rt_classifier, ["Radius Mean", "Texture Mean"])
-
-
-# In[34]:
 
 
 #Test Cases (Look at False Positives - We predicted Malignant but it was actually Benign)
@@ -198,10 +120,6 @@ rt_confMat = confusion_matrix(y_test, rt_pred)
 print_cm(rt_confMat, ["Benign", "Malignant"])
 #Answer: 7 False Positives
 
-
-# In[35]:
-
-
 # Decision / Classification Tree
 dt_classifier = DecisionTreeClassifier(random_state = 1693, max_depth = 5)
 dt_classifier.fit(X_train, y_train)
@@ -209,10 +127,6 @@ dt_pred = dt_classifier.predict(X_test)
 dt_confMat = confusion_matrix(y_test, dt_pred)
 print_cm(dt_confMat, ["Benign", "Malignant"])
 #Answer: 6 False Positives
-
-
-# In[36]:
-
 
 # Bayes
 bayes_classifier = GaussianNB()
