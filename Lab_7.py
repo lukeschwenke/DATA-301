@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[79]:
-
-
 import pandas as pd
 from apyori import apriori
 import pyfim
@@ -27,9 +21,9 @@ rules = apriori(purchases, min_support = .01, min_confidence=0.1, min_lift = 3, 
 results = list(rules)
 
 results[0]
-#1.6% purchased a Large Lemon
-#19.6% of the time if someone bought a Large Lemon, they also bought a lime
-#3.2% Improvement in confidence given we bought a Large Lemon
+#1.6% purchased a Lime
+#19.6% of the time if someone bought a Lime, they also bought a Large Lemon
+#3.2% Improvement in confidence given we bought a Lime
 
 rule_counter = 0
 for i in range(0, len(results)):
@@ -42,18 +36,9 @@ for i in range(0, len(results)):
         rule_counter = rule_counter + 1
         print("If "+str(hypo)+ " is purchased, "+str(conf)+" % of the time "+str(conc)+" is purchased [support = "+str(supp)+"%]")
 print("Total rules built, omitting NaN: "+str(rule_counter))
-    
-
-
-# In[80]:
-
 
 #Ecalt
 rules = pyfim.eclat(purchases, supp=2, zmin=2, out=[])
-
-
-# In[81]:
-
 
 rule_count=0
 for i in range(0, len(rules)):
@@ -66,17 +51,8 @@ for i in range(0, len(rules)):
         print("If "+str(item_1)+ " is purchased, "+str(supp)+" % of the time "+str(item_2)+" is purchased [absolute support = "+str(supp)+"%]")
 print("Total rules built, ommitting NaN: " +str(rule_count))
         
-
-
-# In[82]:
-
-
 #UCB
 from slots import playSlots
-
-
-# In[83]:
-
 
 cash = 1000
 spin = 1
@@ -87,10 +63,6 @@ while(cash > 1):
     cash = (cash - 1) + winnings
     print("I now have $" + str(cash))
     spin = spin+1
-
-
-# In[84]:
-
 
 import random
 N = 2000
@@ -110,10 +82,6 @@ plt.title("Machine Selection (End Balance: "+str(round(balance,2)) + ")")
 plt.xlabel("Slot Machine")
 plt.ylabel("Number of Times Used")
 plt.show()
-
-
-# In[85]:
-
 
 import random
 import math
@@ -153,4 +121,3 @@ plt.title("Machine Selection (End Balance: "+str(round(balance,2)) + ")")
 plt.xlabel("Slot Machine")
 plt.ylabel("Number of Times Used")
 plt.show()
-
