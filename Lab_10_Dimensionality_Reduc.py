@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[5]:
-
-
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -95,15 +89,7 @@ X = pd.get_dummies(X)
 
 X_train, X_test, y_train, y_test = train_test_split(X.values, y.values, test_size=0.2, random_state=1693)
 
-
-# In[6]:
-
-
 len(find_correlation(X, threshold = 0.5, remove_negative = True))
-
-
-# In[ ]:
-
 
 # N_components = 5
 X_train, X_test, y_train, y_test = train_test_split(X.values, y.values, test_size=0.2, random_state=1693)
@@ -150,12 +136,7 @@ confMat = confusion_matrix(y_test, y_pred)
 print_cm(confMat, ["Successful", "Failed"])
 print(accuracy_score(y_test, y_pred_pca))
 
-
-# In[9]:
-
-
 # Kernel PCA - Allows for non-linearities in multi-dimensional space where we are trying to reduct down the dimensions
-
 ks_data = pd.read_csv("ksprojects201801.csv")
 ks_data = ks_data.sample(2500, random_state = 1693)
 
@@ -181,44 +162,24 @@ kernel_pca = KernelPCA(kernel = "rbf")
 x_train_kPCA = kernel_pca.fit_transform(X_train)
 x_test_kPCA = kernel_pca.transform(X_test)
 
-
-# In[3]:
-
-
-# Find Correlation and Bayes
+# Find Correlation & Bayes
 bayes_classifier = GaussianNB()
 bayes_classifier.fit(X_train, y_train)
 y_pred_FC = bayes_classifier.predict(X_test)
 confMat = confusion_matrix(y_test, y_pred_FC)
 print_cm(confMat, ["Successful", "Failed"])
 
-
-# In[4]:
-
-
 explained_variance = np.var(x_train_kPCA, axis = 0)
 kernelPCA_explained_variance_ratio = explained_variance / np.sum(explained_variance)
 print(kernelPCA_explained_variance_ratio)
-
-
-# In[5]:
-
 
 plt.plot(kernelPCA_explained_variance_ratio)
 plt.ylabel("Kernel PCA Variance Explained")
 plt.show()
 
-
-# In[6]:
-
-
 kernel_pca = KernelPCA(kernel = "rbf", n_components = 250) # Very sensitive to n_components / dimensions
 X_train_kPCA = kernel_pca.fit_transform(X_train)
 X_test_kPCA  = kernel_pca.transform(X_test)
-
-
-# In[7]:
-
 
 bayes_classifier = GaussianNB()
 bayes_classifier.fit(X_train_kPCA, y_train)
